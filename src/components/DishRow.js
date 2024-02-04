@@ -1,24 +1,24 @@
 import { StyleSheet, Text, TouchableOpacity, View,Image } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Icon } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToBasket, removeFrombasket, selectBasketItemsWithId } from '../../features/basketSlice';
+import { addToBasket, removeFrombasket, selectBasketItems, selectBasketItemsWithId } from '../../features/basketSlice';
 
 const DishRow = (props) => {
     const {description, id, image, name, price} = props.dish;
     const [pressed, setPressed] = useState(false);
-    const [count, setCount] = useState(0);
     const dispatch = useDispatch();
+    const items = useSelector(selectBasketItems);
+    const itemWithId = items.filter((item) => item.id === id);
+    
 
     const addItemToBasket = () => {
-        setCount(count + 1);
-        let tempCount = count + 1;
+        let tempCount = (itemWithId[0]?.count || 0) + 1;
         dispatch(addToBasket({description, id, image, name, price, count:tempCount}));
     }
 
     const removeItemFromBasket = () => {
-        setCount(count - 1);
-        let tempCount = count -1;
+        let tempCount = itemWithId[0]?.count -1;
         dispatch(removeFrombasket({description, id, image, name, price, count:tempCount}));
     }
   return (
@@ -34,10 +34,10 @@ const DishRow = (props) => {
         {
             pressed &&
             <View style={styles.counterContainer}>
-                <TouchableOpacity disabled={count <= 0} onPress={() => removeItemFromBasket()}>
-                    <Icon name="remove-circle" size={28} color={count <= 0 ? 'gray':'#00CCBB'}/>
+                <TouchableOpacity disabled={itemWithId?.length === 0 } onPress={() => removeItemFromBasket()}>
+                    <Icon name="remove-circle" size={28} color={itemWithId?.length === 0 ? 'gray':'#00CCBB'}/>
                 </TouchableOpacity>
-               <Text>{count}</Text>
+               <Text>{itemWithId[0]?.count || 0}</Text>
                <TouchableOpacity onPress={() => addItemToBasket()}>
                     <Icon name="add-circle" size={28} color='#00CCBB'/>
                 </TouchableOpacity>

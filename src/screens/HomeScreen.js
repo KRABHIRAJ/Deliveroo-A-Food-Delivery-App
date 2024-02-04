@@ -6,86 +6,90 @@ import CategoryBanner from '../components/CategoryBanner';
 import CategoryHeading from '../components/CategoryHeading';
 import RestaurentCard from '../components/RestaurentCard';
 import restaurentData from '../appData/RestaurentData';
+
 const HomeScreen = () => {
+  
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Header */}
-      <View style={styles.headerContainer}>
-        <Image style={styles.profileImg} source={{uri : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxFvYj7VGzTZe3r7fVip0nof1RvfsVJ8-6AuPpcLFlIA&s'}}  />
-        <View style={styles.currentLocationParentContainer}>
-          <Text style={styles.deliverText}>Deliver now!</Text>
-          <View style={styles.currentLocationChildContainer}>
-            <Text style={styles.locationText}>Current Location</Text>
-            <Icon name="expand-more" size={28} color='#00CCBB'/>
+    <>
+      <SafeAreaView style={styles.container}>
+        {/* Header */}
+        <View style={styles.headerContainer}>
+          <Image style={styles.profileImg} source={{uri : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxFvYj7VGzTZe3r7fVip0nof1RvfsVJ8-6AuPpcLFlIA&s'}}  />
+          <View style={styles.currentLocationParentContainer}>
+            <Text style={styles.deliverText}>Deliver now!</Text>
+            <View style={styles.currentLocationChildContainer}>
+              <Text style={styles.locationText}>Current Location</Text>
+              <Icon name="expand-more" size={28} color='#00CCBB'/>
+            </View>
           </View>
+          <Icon name="person" size={28} color='#00CCBB' />
         </View>
-        <Icon name="person" size={28} color='#00CCBB' />
-      </View>
 
-      {/* SearchBar */}
-      <View style={styles.searchBarContainer}> 
-        <View style={styles.searchInputContainer}>
-          <Icon name='search' size={28} color='gray' />
-          <TextInput placeholder='Restaurent & Cuisines'/>
+        {/* SearchBar */}
+        <View style={styles.searchBarContainer}> 
+          <View style={styles.searchInputContainer}>
+            <Icon name='search' size={28} color='gray' />
+            <TextInput placeholder='Restaurent & Cuisines'/>
+          </View>
+          <Icon name="tune" size={28} color='#00CCBB'/>
         </View>
-        <Icon name="tune" size={28} color='#00CCBB'/>
-      </View>
 
-      {/* Catgory banner */}
-      <ScrollView
-        showsHorizontalScrollIndicator={false}
-        style={styles.categoryBannerContainer} 
-        contentContainerStyle={{gap:10}}
-      >
-        <FlatList
-          horizontal
+        {/* Catgory banner */}
+        <ScrollView
           showsHorizontalScrollIndicator={false}
-          data={categoryBannerData}
-          keyExtractor={(item) => item.id}
-          renderItem={({item}) => {
-            return <CategoryBanner  key={item.id} title={item.title} bannerImg={item.uri}  />
-          }}
-        />
-
-        {/* Offers Near You */}
-
-        <CategoryHeading title="Offers near you!" description="Why not support your local restaurent tonight!" />
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={restaurentData}
-          keyExtractor={(item) => item.id}
+          style={styles.categoryBannerContainer} 
           contentContainerStyle={{gap:10}}
-          renderItem={({item}) => {
-            return <RestaurentCard key={item.id} item={item} />
-          }}
-        />
-        <CategoryHeading title="Featured" description="Paid placement from our partners" />
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={restaurentData}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={{gap:10}}
-          renderItem={({item}) => {
-            return <RestaurentCard key={item.id} item={item} />
-          }}
-        />
-        <CategoryHeading title="Tasty Discount" description="Yummy discount on Indian cuisine!" />
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={restaurentData}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={{gap:10}}
-          renderItem={({item}) => {
-            return <RestaurentCard key={item.id} item={item} />
-          }}
-        />
-        <View style={{height:30}} />
-      </ScrollView>
+        >
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={categoryBannerData}
+            keyExtractor={(item) => item.id}
+            renderItem={({item}) => {
+              return <CategoryBanner  key={item.id} title={item.title} bannerImg={item.uri}  />
+            }}
+          />
 
-    </SafeAreaView>
+          {/* Offers Near You */}
+
+          <CategoryHeading title="Offers near you!" description="Why not support your local restaurent tonight!" />
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={restaurentData}
+            keyExtractor={(item) => item.id}
+            contentContainerStyle={{gap:10}}
+            renderItem={({item}) => {
+              return <RestaurentCard key={item.id} item={item} />
+            }}
+          />
+          <CategoryHeading title="Featured" description="Paid placement from our partners" />
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={restaurentData}
+            keyExtractor={(item) => item.id}
+            contentContainerStyle={{gap:10}}
+            renderItem={({item}) => {
+              return <RestaurentCard key={item.id} item={item} />
+            }}
+          />
+          <CategoryHeading title="Tasty Discount" description="Yummy discount on Indian cuisine!" />
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={restaurentData}
+            keyExtractor={(item) => item.id}
+            contentContainerStyle={{gap:10}}
+            renderItem={({item}) => {
+              return <RestaurentCard key={item.id} item={item} />
+            }}
+          />
+          <View style={{height:30}} />
+        </ScrollView>
+
+      </SafeAreaView>
+    </>
   )
 }
 
@@ -96,6 +100,7 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     backgroundColor: "#fff",
     flex:1,
+    position:'relative',
    },
    headerContainer:{
     flexDirection: 'row',
@@ -144,5 +149,6 @@ const styles = StyleSheet.create({
     backgroundColor:'#eee',
     marginTop:10,
     padding:10,
-   }
+   },
+   
 })

@@ -2,13 +2,22 @@ import { StyleSheet, Text, TouchableOpacity, View,Image } from 'react-native'
 import React from 'react';
 import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { setCurrentRestaurant } from '../../features/restaurentSlice';
 
 
 const RestaurentCard = ({item}) => {
 const navigation = useNavigation();
- const {id,imgUrl,address,title,dishes,rating,short_description,genre,long,lat } = item;
+const dispatch = useDispatch();
+const {id,imgUrl,address,title,dishes,rating,short_description,genre,long,lat } = item;
+
+
+const handleOnPress = () => {
+    dispatch(setCurrentRestaurant(item));
+    navigation.navigate('Restaurent',{item:item})
+}
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Restaurent',{item:item})} style={styles.container}>
+    <TouchableOpacity onPress={() => handleOnPress()} style={styles.container}>
         <Image source={{uri: imgUrl}} style={styles.resImage} />
         <View style={styles.restaurentDetailContainer}>
             <Text style={styles.titleText}>{title}</Text>

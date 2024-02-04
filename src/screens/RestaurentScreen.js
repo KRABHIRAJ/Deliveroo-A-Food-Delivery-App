@@ -3,13 +3,14 @@ import React from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Icon } from 'react-native-elements';
 import DishRow from '../components/DishRow';
+import BasketDetailBottom from '../components/BasketDetailBottom';
 
 const RestaurentScreen = () => {
     const { params } = useRoute();
     const navigation = useNavigation();
     const {id,imgUrl,address,title,dishes,rating,short_description,genre,long,lat } = params.item;
-    console.log('imgUrl >>', imgUrl);
   return (
+    <>
     <ScrollView 
         showsVerticalScrollIndicator={false}
         style={styles.container}
@@ -51,7 +52,10 @@ const RestaurentScreen = () => {
             ))
           }
       </View>
+      <View style={{paddingBottom:85}} />
     </ScrollView>
+    <BasketDetailBottom />
+    </>
   )
 }
 
@@ -62,6 +66,7 @@ const styles = StyleSheet.create({
         marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
         backgroundColor: "#eee",
         flex:1,
+        position:'relative',
     },
     imageBg:{
         width:'100%',
@@ -125,5 +130,6 @@ const styles = StyleSheet.create({
     },
     menuItem:{
         backgroundColor:'#eee',
-    }
+    },
+    
 })
